@@ -1,1 +1,1 @@
-# jdbc-to-bean
+一个读取数据库中表的结构，转成java bean的程序
