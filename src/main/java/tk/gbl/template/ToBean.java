@@ -67,8 +67,8 @@ public class ToBean {
     }
 
     public String createStart(String tableName) {
-        return "package " + pkg +";\r\nimport lombok.Data;\nimport java.math.BigDecimal;\n" +
-                "import java.util.Date;"+ "\r\n\r\n@Data\npublic class " + tableName+"PO" + " {\r\n";
+        return "package " + pkg + ";\r\nimport lombok.Data;\nimport java.math.BigDecimal;\n" +
+                "import java.util.Date;" + "\r\n\r\n@Data\npublic class " + tableName + "PO" + " {\r\n";
     }
 
     public String createField(FieldInfo fieldInfo) {
@@ -149,12 +149,15 @@ public class ToBean {
         if (type.equalsIgnoreCase("text") || type.equalsIgnoreCase("char")
                 || type.equalsIgnoreCase("varchar") || type.equalsIgnoreCase("tinytext")) {
             jtype = "String";
+        } else if (type.equalsIgnoreCase("smallint")) {
+//            jtype = "Short";
+            jtype = "Integer";
         } else if (type.equalsIgnoreCase("tinyint") || type.equalsIgnoreCase("int")
                 || type.equalsIgnoreCase("int unsigned")
                 || type.equalsIgnoreCase("smallint") || type.equalsIgnoreCase("mediumint")) {
             jtype = "Integer";
         } else if (type.equalsIgnoreCase("tinyint") || type.equalsIgnoreCase("long")
-                || type.equalsIgnoreCase("bigint") ||  type.equalsIgnoreCase("bigint unsigned")
+                || type.equalsIgnoreCase("bigint") || type.equalsIgnoreCase("bigint unsigned")
                 || type.equalsIgnoreCase("mediumint")) {
             jtype = "Long";
         }
@@ -164,7 +167,7 @@ public class ToBean {
             jtype = "Date";
         } else if (type.equalsIgnoreCase("decimal")) {
             jtype = "BigDecimal";
-        }else if (type.equalsIgnoreCase("bit")) {
+        } else if (type.equalsIgnoreCase("bit")) {
             jtype = "Boolean";
         }
 

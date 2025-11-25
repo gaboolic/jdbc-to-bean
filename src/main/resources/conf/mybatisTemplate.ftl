@@ -3,20 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xxx.mapper.${className}Mapper">
 
-    <resultMap id="${resultMap}" type="com.xxx.po.${className}PO">
-  <#list propertyList as property>
-      <result property="${property.property}" column="${property.column}"/>
-  </#list>
-    </resultMap>
-
-
-    <sql id="Base_Column_List">
-        <trim suffixOverrides=",">
-    <#list propertyList as property>
-        `${property.column}`,
-    </#list>
-        </trim>
-    </sql>
 
     <insert id="addEntity" parameterType="com.xxx.po.${className}PO">
         insert into `${tableName}`
@@ -37,13 +23,29 @@
         update `${tableName}`
         <set>
     <#list propertyList as property>
+        <#if property.column != "update_time">
         <if test="${property.property} != null">
             ${property.column}=${'#'}${'{'}${property.property}${'}'},
         </if>
+        </#if>
     </#list>
         </set>
         <where>
             id = ${'#'}${'{'}id${'}'}
+        </where>
+    </update>
+
+    <select id="selectById">
+        select * from `${tableName}`
+        <where>
+            id = ${'#'}${'{'}id${'}'}
+        </where>
+    </select>
+
+    <update id="deleteById">
+        delete from `${tableName}`
+        <where>
+           id = ${'#'}${'{'}id${'}'}
         </where>
     </update>
 
